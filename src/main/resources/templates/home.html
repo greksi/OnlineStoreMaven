@@ -1,0 +1,65 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <header th:insert="blocks/header::styleCss"></header>
+    <header th:insert="blocks/header::styleJs"></header>
+</head>
+<body>
+
+<header th:insert="blocks/nav::nav"></header>
+
+<main role="main">
+    <div class="container">
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8"><h1 class="jumbotron-heading">CATALOG</h1></div>
+        </div>
+    </div>
+
+    <div class="album py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div th:each="product:${products}">
+                    <div class="col-md-4">
+                        <form  th:action="@{/cart/add(id=${product.id})}" method="post" th:object="${product}">
+                            <div class="card mb-4 box-shadow" style="width: 18rem;">
+                            <img class="card-img-top" th:src="${#strings.concat('/files/', product.fileName)}" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title" th:text="${product.title}">Card title</h5>
+                                <p class="card-text" th:text="${product.parameters}"></p>
+                                <p class="card-text" th:text="${product.price}"></p>
+                                <p class="card-text" th:text="${product.id}"></p>
+                                <div class="btn-group">
+                                    <button type="submit" class="btn btn-secondary my-2">Добавить в корзину</button>
+                                </div>
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="text-muted">
+    <div class="container">
+        <p class="float-right">
+            <a href="#" class="btn-secondary my-2">Back to top</a>
+        </p>
+    </div>
+</footer>
+
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
+<script>
+let
+    function addProductToCart(productName) {
+                alert(productName);
+            }
+</script>
+
+<footer></footer>
+
+</body>
+</html>

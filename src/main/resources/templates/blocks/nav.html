@@ -1,0 +1,59 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+    <div class="container mw-100" th:fragment="nav">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light mt-3">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <ul class="navbar-nav mr-auto">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Каталог</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="delivery">Доставка и оплата</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact">Контакты</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="login">Войти</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="cart">Корзина</a>
+                    </li>
+
+                    <div th:if="${user}">
+                        <li class="nav-item" >
+                            <a class="nav-link" href="admin">Admin</a>
+                        </li>
+                    </div>
+                </ul>
+
+                <form class="form-inline my-2 my-lg-0">
+                    <a title="Корзина" class="nav-link" href="cart">
+                        <img class="card-img-top"  vspace="4" src="/images/cart.png" alt="Cart image">
+                        <span class="rounded-circle badge badge-secondary" th:text="${sizeCart}"></span>
+                    </a>
+                </form>
+
+                <form th:action="@{/logout}" class="form-inline my-2 my-lg-0" method="post">
+                    <input type="submit" value="Выйти"/>
+                </form>
+
+            </div>
+        </nav>
+
+    </div>
+</html>
+
+
+

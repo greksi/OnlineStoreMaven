@@ -1,0 +1,41 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <header th:insert="blocks/header::styleCss"></header>
+    <header th:insert="blocks/header::styleJs"></header>
+    <title>List of products</title>
+</head>
+<body>
+<section class="jumbotron text-center">
+    <div class="container">
+        <h4 class="jumbotron-heading" ><span th:text="'Order Number: ' + ${order.number}"></span></h4>
+    </div>
+</section>
+<table class="table">
+    <thead class="thead-dark">
+    <th scope="col">id</th>
+    <th scope="col">Product Title</th>
+    <th scope="col">Quantity</th>
+    <th scope="col">Price</th>
+    <th scope="col">Summa</th>
+    </thead>
+    <tbody>
+    <tr th:each="salePosition: ${salePositions}">
+        <td th:text="${salePosition.id}" />
+        <td th:text="${salePosition.product.title}" />
+        <td th:text="${salePosition.getQuantity()}" />
+        <td th:text="${salePosition.product.price}" />
+        <td th:text="${salePosition.getPrice()}" />
+    </tr>
+    </tbody>
+</table>
+
+<footer class="text-muted">
+    <div class="container">
+        <p class="float-right">
+            <a th:href="@{/orderList}" class="btn btn-secondary my-2">Back to Order List</a>
+        </p>
+    </div>
+</footer>
+
+</body>
+</html>

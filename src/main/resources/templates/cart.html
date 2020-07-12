@@ -1,0 +1,112 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+
+    <header th:insert="blocks/header::styleCss"></header>
+</head>
+<body>
+
+    <header th:insert="blocks/nav::nav"></header>
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-8"><h1>Корзина</h1></div>
+            <div class="col-4">
+                <span class="d-flex justify-content-end">
+                    <a  href="/" class="btn btn-secondary my-2">Продолжить покупку</a>
+                </span>
+            </div>
+        </div>
+
+        <div class="product-cart" style="display:block">
+            <div class="cart-wrapper">
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th scope="col">Фото</th>
+                            <th scope="col">Наименование</th>
+                            <th scope="col">Цена</th>
+                            <th scope="col">Количество</th>
+                            <th scope="col">Сумма</th>
+                            <th scope="col">Удалить</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr th:each="sale_position:${sale_positions}">
+
+                            <td>
+                                <div class="container" >
+                                    <img  width="70" height="70" hspace="4" vspace="4" th:src="${#strings.concat('/files/', sale_position.product.fileName)}" alt="Card image cap">
+                                </div>
+                            </td>
+
+                            <td th:text="${sale_position.product.title}" />
+                            <td th:text="${sale_position.product.price} + ' руб.'"/>
+
+                            <td>
+                                <div class="counter row">
+
+                                    <form  th:action="@{/cart/del(id=${sale_position.product.id})}" method="post" >
+                                        <button id="btn_del" type="submit" class="btn btn-light">-</button>
+                                    </form>
+
+                                    <input type="text" th:value="${sale_position.quantity }" min="1" max="100" >
+
+                                    <div id="quantity"></div>
+
+                                    <form  th:action="@{/cart/add(id=${sale_position.product.id})}" method="post" >
+                                        <button id="btn_add" type="submit" >+</button>
+                                    </form>
+
+                                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<!--                                        <script th:inline="javascript">-->
+<!--                                           $("#btn_add").on("click", function -->
+<!--                                            var param=[[${sale_position.product.id}]]-->
+<!--                                            $("#quantity").load("cat/add_1", "id=[[${sale_position.product.id}]]");-->
+<!--                                            $(function(){-->
+<!--                                                $('button').click(function(){-->
+<!--                                                 $('#quantity').load("cart/add_1",  {'id':[[${sale_position.product.id}]]})-->
+<!--                                                });-->
+<!--                                            });-->
+<!--                                         </script>-->
+                                </div>
+                            </td>
+
+                            <td th:text="${sale_position.getPrice()} + ' руб.'">
+
+                            </td>
+
+                            <td>
+                                <form  th:action="@{/cart/removePosition(id=${sale_position.product.id})}" method="post">
+                                    <button id="btn_removePosition" type="submit" >X</button>
+                                </form>
+                            </td>
+                    </tbody>
+                </table>
+
+                <div class="bottom-row clearfix">
+                    <div class="right-col clearfix">
+                        <div class="total-sum">
+                            <span>Итого:</span>
+                            <strong th:text="${price_of_cart} + ' руб.'"></strong>
+                        </div>
+
+                    </div>
+                </div>
+
+                <button id="btn_order">Оформить заказ</button>
+
+                <div id="orderForm" class="mt-5"></div>
+
+                <script>
+                            $("#btn_order").on("click", function () {
+                                $("#orderForm").load("/orderForm");
+                            });
+                 </script>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Login Form</title>
+    <header th:insert="blocks/header::styleCss"></header>
+    <header th:insert="blocks/header::styleJs"></header>
+</head>
+<body>
+
+    <div th:if="${param.error}">
+        Invalid username or password.
+    </div>
+    <div class="card ml-5" style="width: 18rem">
+        <div class="card-body">
+            <form th:action="@{/login}" method="post">
+                <div class="form-group">
+                    <label>User Name: </label>
+                        <input type="text" name="username" class="form-control" placeholder="User name">
+                </div>
+
+                <div class="form-group">
+                    <label>Password: </label>
+                        <input type="password" class="form-control " name="password" placeholder="Password">
+                </div>
+
+                <div class="container">
+                        <button type="submit" class="btn btn-secondary my-2">Sign In</button>
+                </div>
+
+                <div class="container">
+                        <a href="registration" class="btn btn-secondary my-2">Registration</a>
+                </div>
+
+                <div class="container">
+                    <a href="/" class="btn btn-secondary my-2">Return To Main Page</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+</body>
+</html>
+
